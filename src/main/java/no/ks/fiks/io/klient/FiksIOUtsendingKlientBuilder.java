@@ -2,6 +2,7 @@ package no.ks.fiks.io.klient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.Request;
 
@@ -10,9 +11,10 @@ import java.util.function.Function;
 /**
  * Builder that must be used to create
  */
+@Slf4j
 public class FiksIOUtsendingKlientBuilder {
 
-    private HttpClient httpClient = new HttpClient();
+    private HttpClient httpClient;
 
     private String scheme = "https";
 
@@ -24,7 +26,7 @@ public class FiksIOUtsendingKlientBuilder {
 
     private Function<Request, Request> requestInterceptor;
 
-    private ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
+    private ObjectMapper objectMapper;
 
     public FiksIOUtsendingKlientBuilder withHttpClient(@NonNull final HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -62,7 +64,7 @@ public class FiksIOUtsendingKlientBuilder {
     }
 
     public FiksIOUtsendingKlient build() {
-        objectMapper = new ObjectMapper();
+
         return new FiksIOUtsendingKlient(
                 createRequestFactory(),
                 authenticationStrategy,
@@ -73,7 +75,7 @@ public class FiksIOUtsendingKlientBuilder {
 
     private RequestFactory createRequestFactory() {
         return RequestFactoryImpl.builder()
-                                 .client(httpClient)
+                                 .client(getOrCreateHttpClient())
                                  .scheme(scheme)
                                  .hostName(hostName)
                                  .portNumber(portNumber)
@@ -86,5 +88,19 @@ public class FiksIOUtsendingKlientBuilder {
 
     private ObjectMapper getOrCreateObjectMapper() {
         return objectMapper == null ? new ObjectMapper().findAndRegisterModules() : objectMapper;
+    }
+
+    private HttpClient getOrCreateHttpClient() {
+        final HttpClient internalClient = httpClient == null ? new HttpClient() : httpClient;
+        if(! internalClient.isStarted()) {
+            log.debug("Starting http client");
+            try {
+                internalClient.start();
+            } catch (Exception e) {
+                log.warn("Feil under oppstart av Jetty HttpClient", e);
+                throw new IllegalStateException("Kunne ikke starte http client", e);
+            }
+        }
+        return internalClient;
     }
 }
