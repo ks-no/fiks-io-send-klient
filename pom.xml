@@ -19,7 +19,7 @@
     <url>https://github.com/ks-no/fiks-io-send-klient</url>
   </scm>
   <properties>
-    <maskinporten-client.version>1.0.11</maskinporten-client.version>
+    <maskinporten-client.version>1.0.12</maskinporten-client.version>
     <lombok.version>1.16.22</lombok.version>
     <vavr.version>0.10.0</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
