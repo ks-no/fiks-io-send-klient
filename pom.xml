@@ -28,7 +28,7 @@
     <logback-classic.version>1.2.3</logback-classic.version>
     <revision>1.2.4</revision>
     <jackson.version>2.10.0.pr1</jackson.version>
-    <mockito.version>2.28.2</mockito.version>
+    <mockito.version>3.2.7</mockito.version>
     <jetty-client.version>9.4.20.v20190813</jetty-client.version>
     <junit-platform-commons.version>1.4.2</junit-platform-commons.version>
     <junit-jupiter.version>5.4.2</junit-jupiter.version>
