@@ -29,7 +29,7 @@
     <revision>1.2.5</revision>
     <jackson.version>2.10.2</jackson.version>
     <jetty-client.version>9.4.26.v20200117</jetty-client.version>
-    <mockito.version>3.2.8</mockito.version>
+    <mockito.version>3.2.9</mockito.version>
     <junit-platform-commons.version>1.6.0</junit-platform-commons.version>
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
   </properties>
