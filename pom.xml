@@ -30,7 +30,7 @@
     <revision>1.2.6</revision>
     <jackson.version>2.10.2</jackson.version>
     <mockito.version>3.2.9</mockito.version>
-    <jetty-client.version>9.4.26.v20200117</jetty-client.version>
+    <jetty-client.version>9.4.31.v20200723</jetty-client.version>
     <junit-platform-commons.version>1.6.0</junit-platform-commons.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
