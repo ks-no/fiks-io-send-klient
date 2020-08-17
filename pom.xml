@@ -29,7 +29,7 @@
     <logback-classic.version>1.2.3</logback-classic.version>
     <revision>1.2.6</revision>
     <jackson.version>2.10.2</jackson.version>
-    <mockito.version>3.2.9</mockito.version>
+    <mockito.version>3.5.0</mockito.version>
     <jetty-client.version>9.4.26.v20200117</jetty-client.version>
     <junit-platform-commons.version>1.6.0</junit-platform-commons.version>
     <maven.compiler.source>1.8</maven.compiler.source>
