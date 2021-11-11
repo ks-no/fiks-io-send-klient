@@ -32,7 +32,7 @@
     <validation-api.version>2.0.1.Final</validation-api.version>
     <logback-classic.version>1.2.3</logback-classic.version>
     <commons-io.version>2.10.0</commons-io.version>
-    <maskinporten-client.version>1.2.0</maskinporten-client.version>
+    <maskinporten-client.version>1.3.0</maskinporten-client.version>
   </properties>
   <dependencies>
     <dependency>
