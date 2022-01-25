@@ -20,7 +20,7 @@
   </scm>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <mockito.version>4.2.0</mockito.version>
+    <mockito.version>4.3.0</mockito.version>
     <junit-platform-commons.version>1.7.2</junit-platform-commons.version>
     <jackson.version>2.13.1</jackson.version>
     <revision>1.2.8</revision>
