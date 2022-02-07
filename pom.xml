@@ -31,7 +31,7 @@
     <vavr.version>0.10.4</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <logback-classic.version>1.2.10</logback-classic.version>
-    <commons-io.version>2.10.0</commons-io.version>
+    <commons-io.version>2.11.0</commons-io.version>
     <maskinporten-client.version>2.0.5</maskinporten-client.version>
   </properties>
   <dependencies>
