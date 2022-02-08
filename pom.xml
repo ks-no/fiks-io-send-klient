@@ -27,7 +27,7 @@
     <lombok.version>1.16.22</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <jetty-client.version>9.4.44.v20210927</jetty-client.version>
+    <jetty-client.version>9.4.45.v20220203</jetty-client.version>
     <vavr.version>0.10.4</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <logback-classic.version>1.2.10</logback-classic.version>
