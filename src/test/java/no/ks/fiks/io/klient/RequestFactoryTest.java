@@ -1,7 +1,7 @@
 package no.ks.fiks.io.klient;
 
 import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.client.util.StringContentProvider;
+import org.eclipse.jetty.client.util.StringRequestContent;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +18,7 @@ class RequestFactoryTest {
                                                               .hostName(hostName)
                                                               .portNumber(portNumber)
                                                               .build()
-                                                              .createSendToFiksIORequest(new StringContentProvider("stuff"));
+                                                              .createSendToFiksIORequest(new StringRequestContent("stuff"));
         assertEquals(RequestFactoryImpl.BASE_PATH + "send", sendToFiksIORequest.getPath());
         assertEquals(hostName, sendToFiksIORequest.getHost());
         assertEquals(scheme, sendToFiksIORequest.getScheme());

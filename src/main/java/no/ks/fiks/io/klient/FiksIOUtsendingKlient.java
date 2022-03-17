@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.client.api.Response;
-import org.eclipse.jetty.client.util.InputStreamContentProvider;
-import org.eclipse.jetty.client.util.InputStreamResponseListener;
-import org.eclipse.jetty.client.util.MultiPartContentProvider;
-import org.eclipse.jetty.client.util.StringContentProvider;
+import org.eclipse.jetty.client.util.*;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -51,10 +48,10 @@ public class FiksIOUtsendingKlient implements Closeable {
     }
 
     public SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Option<InputStream> data) {
-        try (MultiPartContentProvider contentProvider = new MultiPartContentProvider()) {
-            contentProvider.addFieldPart("metadata", new StringContentProvider("application/json", serialiser(metadata), Charset.forName("UTF-8")), null);
+            MultiPartRequestContent contentProvider = new MultiPartRequestContent();
+            contentProvider.addFieldPart("metadata", new StringRequestContent("application/json", serialiser(metadata), Charset.forName("UTF-8")), null);
             if (data.isDefined())
-                contentProvider.addFilePart("data", UUID.randomUUID().toString(), new InputStreamContentProvider(data.get()), null);
+                contentProvider.addFilePart("data", UUID.randomUUID().toString(), new InputStreamRequestContent(data.get()), null);
 
 
             InputStreamResponseListener listener = new InputStreamResponseListener();
@@ -62,6 +59,7 @@ public class FiksIOUtsendingKlient implements Closeable {
 
             authenticationStrategy.setAuthenticationHeaders(request);
 
+            contentProvider.close();
             requestInterceptor.apply(request).send(listener);
 
             try {
@@ -75,7 +73,6 @@ public class FiksIOUtsendingKlient implements Closeable {
             } catch (InterruptedException | TimeoutException | ExecutionException | IOException e) {
                 throw new RuntimeException("Feil under invokering av FIKS IO api", e);
             }
-        }
 
     }
 

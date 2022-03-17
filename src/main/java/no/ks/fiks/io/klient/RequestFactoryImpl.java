@@ -2,12 +2,9 @@ package no.ks.fiks.io.klient;
 
 import lombok.Builder;
 import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.client.http.HttpClientTransportOverHTTP;
 import org.eclipse.jetty.http.HttpMethod;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-
-import java.io.IOException;
 
 public class RequestFactoryImpl implements RequestFactory {
     static final String BASE_PATH = "/fiks-io/api/v1/";
@@ -22,7 +19,7 @@ public class RequestFactoryImpl implements RequestFactory {
         this.hostName = hostName;
         this.portNumber = portNumber;
 
-        this.client = new HttpClient(new SslContextFactory.Client());
+        this.client = new HttpClient(new HttpClientTransportOverHTTP());
         try {
             client.start();
         } catch (Exception e) {
@@ -31,12 +28,12 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public Request createSendToFiksIORequest(ContentProvider contentProvider) {
+    public Request createSendToFiksIORequest(Request.Content contentProvider) {
         return client.newRequest(hostName, portNumber)
                                 .scheme(scheme)
                                 .method(HttpMethod.POST)
                                 .path(BASE_PATH + "send")
-                                .content(contentProvider);
+                                .body(contentProvider);
     }
 
     @Override

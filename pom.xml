@@ -19,7 +19,10 @@
     <url>https://github.com/ks-no/fiks-io-send-klient</url>
   </scm>
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.release>11</maven.compiler.release>
+    <source.jdk.version>${maven.compiler.release}</source.jdk.version>
+    <target.jdk.version>${maven.compiler.release}</target.jdk.version>
+    <enforcer.jdk.version>${maven.compiler.release}</enforcer.jdk.version>
     <mockito.version>4.4.0</mockito.version>
     <junit-platform-commons.version>1.8.2</junit-platform-commons.version>
     <jackson.version>2.13.2</jackson.version>
@@ -27,7 +30,7 @@
     <lombok.version>1.16.22</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <jetty-client.version>9.4.44.v20210927</jetty-client.version>
+    <jetty-client.version>11.0.8</jetty-client.version>
     <vavr.version>0.10.4</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <logback-classic.version>1.2.11</logback-classic.version>
@@ -112,11 +115,37 @@
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.mock-server</groupId>
+      <artifactId>mockserver-junit-jupiter</artifactId>
+      <version>5.12.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.2.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.36</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
       </plugin>
     </plugins>
   </build>
