@@ -1,6 +1,6 @@
 package no.ks.fiks.io.klient;
 
-import no.ks.fiks.maskinporten.Maskinportenklient;
+import no.ks.fiks.maskinporten.MaskinportenklientOperations;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpHeader;
 
@@ -12,11 +12,11 @@ public class IntegrasjonAuthenticationStrategy implements AuthenticationStrategy
 
     static final String INTEGRASJON_PASSWORD = "IntegrasjonPassord";
 
-    private final Maskinportenklient maskinportenklient;
+    private final MaskinportenklientOperations maskinportenklient;
     private final UUID integrasjonId;
     private final String integrasjonPassord;
 
-    public IntegrasjonAuthenticationStrategy(Maskinportenklient maskinportenklient, UUID integrasjonId, String integrasjonPassord) {
+    public IntegrasjonAuthenticationStrategy(MaskinportenklientOperations maskinportenklient, UUID integrasjonId, String integrasjonPassord) {
         this.maskinportenklient = maskinportenklient;
         this.integrasjonId = integrasjonId;
         this.integrasjonPassord = integrasjonPassord;

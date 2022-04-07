@@ -5,7 +5,7 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>fiks-io-send-klient</artifactId>
@@ -20,20 +20,45 @@
   </scm>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <mockito.version>4.3.1</mockito.version>
-    <junit-platform-commons.version>1.8.2</junit-platform-commons.version>
-    <jackson.version>2.13.1</jackson.version>
+    <mockito.version>4.4.0</mockito.version>
+    <jackson.version>2.13.2.1</jackson.version>
     <revision>1.2.8</revision>
-    <lombok.version>1.16.22</lombok.version>
+    <lombok.version>1.18.22</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <jetty-client.version>9.4.44.v20210927</jetty-client.version>
     <vavr.version>0.10.4</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
-    <logback-classic.version>1.2.10</logback-classic.version>
+    <logback-classic.version>1.2.11</logback-classic.version>
     <commons-io.version>2.11.0</commons-io.version>
     <maskinporten-client.version>2.0.5</maskinporten-client.version>
+    <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-bom</artifactId>
+        <version>${mockito.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -59,12 +84,10 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -78,20 +101,7 @@
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-commons</artifactId>
-      <version>${junit-platform-commons.version}</version>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -103,13 +113,11 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
-      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -117,6 +125,11 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
