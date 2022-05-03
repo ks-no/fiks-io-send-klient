@@ -19,7 +19,9 @@
     <url>https://github.com/ks-no/fiks-io-send-klient</url>
   </scm>
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
+    <java.version>11</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <mockito.version>4.5.1</mockito.version>
     <jackson.version>2.13.2.20220328</jackson.version>
     <revision>1.2.8</revision>
