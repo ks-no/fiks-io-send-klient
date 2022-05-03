@@ -20,8 +20,10 @@
   </scm>
   <properties>
     <java.version>11</java.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
+    <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
     <mockito.version>4.5.1</mockito.version>
     <jackson.version>2.13.2.20220328</jackson.version>
     <revision>1.2.8</revision>
