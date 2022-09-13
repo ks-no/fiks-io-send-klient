@@ -1,5 +1,6 @@
 package no.ks.fiks.io.klient;
 
+import no.ks.fiks.maskinporten.AccessTokenRequest;
 import no.ks.fiks.maskinporten.MaskinportenklientOperations;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpHeader;
@@ -30,6 +31,6 @@ public class IntegrasjonAuthenticationStrategy implements AuthenticationStrategy
     }
 
     private String getAccessToken() {
-        return maskinportenklient.getAccessToken("ks:fiks");
+        return maskinportenklient.getAccessToken(AccessTokenRequest.builder().scope("ks:fiks").build());
     }
 }

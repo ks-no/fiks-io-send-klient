@@ -1,5 +1,6 @@
 package no.ks.fiks.io.klient;
 
+import no.ks.fiks.maskinporten.AccessTokenRequest;
 import no.ks.fiks.maskinporten.MaskinportenklientOperations;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpHeader;
@@ -21,7 +22,7 @@ class IntegrasjonAuthenticationStrategyTest {
         final String integrasjonPassord = "passord";
         final String accessToken = "accessToken";
 
-        when(maskinportenklient.getAccessToken(anyString())).thenReturn(accessToken);
+        when(maskinportenklient.getAccessToken(isA(AccessTokenRequest.class))).thenReturn(accessToken);
         when(request.header(eq(HttpHeader.AUTHORIZATION), anyString())).thenReturn(request);
         when(request.header(eq(IntegrasjonAuthenticationStrategy.INTEGRASJON_ID), anyString())).thenReturn(request);
         when(request.header(eq(IntegrasjonAuthenticationStrategy.INTEGRASJON_PASSWORD), anyString())).thenReturn(request);
@@ -29,7 +30,7 @@ class IntegrasjonAuthenticationStrategyTest {
         new IntegrasjonAuthenticationStrategy(maskinportenklient, integrasjonId, integrasjonPassord)
                 .setAuthenticationHeaders(request);
 
-        verify(maskinportenklient).getAccessToken(anyString());
+        verify(maskinportenklient).getAccessToken(isA(AccessTokenRequest.class));
         verify(request).header(eq(HttpHeader.AUTHORIZATION), anyString());
         verify(request).header(eq(IntegrasjonAuthenticationStrategy.INTEGRASJON_ID), anyString());
         verify(request).header(eq(IntegrasjonAuthenticationStrategy.INTEGRASJON_PASSWORD), anyString());

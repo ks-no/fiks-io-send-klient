@@ -2,7 +2,6 @@ package no.ks.fiks.io.klient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.vavr.control.Option;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -50,12 +50,11 @@ public class FiksIOUtsendingKlient implements Closeable {
         return new FiksIOUtsendingKlientBuilder();
     }
 
-    public SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Option<InputStream> data) {
+    public SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Optional<InputStream> data) {
         try (MultiPartContentProvider contentProvider = new MultiPartContentProvider()) {
             contentProvider.addFieldPart("metadata", new StringContentProvider("application/json", serialiser(metadata), Charset.forName("UTF-8")), null);
-            if (data.isDefined())
-                contentProvider.addFilePart("data", UUID.randomUUID().toString(), new InputStreamContentProvider(data.get()), null);
-
+            data.ifPresent(inputStream ->
+                    contentProvider.addFilePart("data", UUID.randomUUID().toString(), new InputStreamContentProvider(inputStream), null));
 
             InputStreamResponseListener listener = new InputStreamResponseListener();
             final Request request = requestFactory.createSendToFiksIORequest(contentProvider);

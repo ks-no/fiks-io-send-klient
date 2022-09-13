@@ -31,7 +31,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.9.0</junit-jupiter.version>
     <jetty-client.version>9.4.48.v20220622</jetty-client.version>
-    <vavr.version>0.10.4</vavr.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <logback-classic.version>1.2.11</logback-classic.version>
     <commons-io.version>2.11.0</commons-io.version>
@@ -73,11 +72,6 @@
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
       <version>${validation-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.vavr</groupId>
-      <artifactId>vavr</artifactId>
-      <version>${vavr.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
