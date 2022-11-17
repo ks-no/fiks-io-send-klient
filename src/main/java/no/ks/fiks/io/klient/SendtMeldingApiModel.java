@@ -16,7 +16,7 @@ public class SendtMeldingApiModel {
     @NonNull private String meldingType;
     @NonNull private UUID avsenderKontoId;
     @NonNull private UUID mottakerKontoId;
-    @NonNull private Long ttl;
+    private Long ttl;
     private UUID dokumentlagerId;
     private UUID svarPaMelding;
     private Map<String, String> headere;
