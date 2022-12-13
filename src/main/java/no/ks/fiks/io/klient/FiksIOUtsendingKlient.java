@@ -15,7 +15,6 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +31,7 @@ public class FiksIOUtsendingKlient implements Closeable {
 
     private final RequestFactory requestFactory;
     private final AuthenticationStrategy authenticationStrategy;
-    private Function<Request, Request> requestInterceptor;
+    private final Function<Request, Request> requestInterceptor;
 
     private final ObjectMapper objectMapper;
 
@@ -52,7 +51,7 @@ public class FiksIOUtsendingKlient implements Closeable {
 
     public SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Optional<InputStream> data) {
         try (MultiPartContentProvider contentProvider = new MultiPartContentProvider()) {
-            contentProvider.addFieldPart("metadata", new StringContentProvider("application/json", serialiser(metadata), Charset.forName("UTF-8")), null);
+            contentProvider.addFieldPart("metadata", new StringContentProvider("application/json", serialiser(metadata), StandardCharsets.UTF_8), null);
             data.ifPresent(inputStream ->
                     contentProvider.addFilePart("data", UUID.randomUUID().toString(), new InputStreamContentProvider(inputStream), null));
 
@@ -63,14 +62,14 @@ public class FiksIOUtsendingKlient implements Closeable {
 
             requestInterceptor.apply(request).send(listener);
 
-            try {
+            try (InputStream listenerInputStream = listener.getInputStream()) {
                 Response response = listener.get(1, TimeUnit.HOURS);
                 if (isClientError(response.getStatus()) || isServerError(response.getStatus())) {
                     int status = response.getStatus();
-                    String content = IOUtils.toString(listener.getInputStream(), StandardCharsets.UTF_8);
+                    String content = IOUtils.toString(listenerInputStream, StandardCharsets.UTF_8);
                     throw new FiksIOHttpException(String.format("HTTP-feil under sending av melding (%d): %s", status, content), status, content);
                 }
-                return objectMapper.readValue(listener.getInputStream(), SendtMeldingApiModel.class);
+                return objectMapper.readValue(listenerInputStream, SendtMeldingApiModel.class);
             } catch (InterruptedException | TimeoutException | ExecutionException | IOException e) {
                 throw new RuntimeException("Feil under invokering av FIKS IO api", e);
             }
