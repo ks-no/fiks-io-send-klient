@@ -25,7 +25,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
     <mockito.version>4.9.0</mockito.version>
-    <jackson.version>2.14.1</jackson.version>
+    <jackson.version>2.14.2</jackson.version>
     <revision>1.2.8</revision>
     <lombok.version>1.18.24</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
