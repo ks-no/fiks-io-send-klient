@@ -7,7 +7,7 @@ import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpMethod;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 
-import java.io.IOException;
+import java.time.Duration;
 
 public class RequestFactoryImpl implements RequestFactory {
     static final String BASE_PATH = "/fiks-io/api/v1/";
@@ -23,6 +23,7 @@ public class RequestFactoryImpl implements RequestFactory {
         this.portNumber = portNumber;
 
         this.client = new HttpClient(new SslContextFactory.Client());
+        this.client.setIdleTimeout(Duration.ofMinutes(1).toMillis());
         try {
             client.start();
         } catch (Exception e) {
