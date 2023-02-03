@@ -23,7 +23,6 @@ public class RequestFactoryImpl implements RequestFactory {
         this.portNumber = portNumber;
 
         this.client = new HttpClient(new SslContextFactory.Client());
-        this.client.setDestinationIdleTimeout(Duration.ofMinutes(1).toMillis());
         this.client.setIdleTimeout(Duration.ofMinutes(2).toMillis());
         this.client.setConnectTimeout(Duration.ofSeconds(30).toMillis());
         try {
