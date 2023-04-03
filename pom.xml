@@ -9,7 +9,7 @@
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>fiks-io-send-klient</artifactId>
-  <version>2.1.5-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <name>FIKS IO send-klient</name>
   <description>Klient for å sende meldinger til FIKS IO</description>
   <url>https://github.com/ks-no/fiks-io</url>
@@ -19,7 +19,7 @@
     <url>https://github.com/ks-no/fiks-io-send-klient</url>
   </scm>
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -28,10 +28,9 @@
     <jackson.version>2.14.2</jackson.version>
     <revision>1.2.8</revision>
     <lombok.version>1.18.24</lombok.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
-    <jetty-client.version>9.4.50.v20221201</jetty-client.version>
-    <validation-api.version>2.0.1.Final</validation-api.version>
+    <jetty-client.version>11.0.14</jetty-client.version>
+    <validation-api.version>3.0.2</validation-api.version>
     <logback-classic.version>1.4.6</logback-classic.version>
     <commons-io.version>2.11.0</commons-io.version>
     <maskinporten-client.version>3.0.0</maskinporten-client.version>
@@ -69,8 +68,8 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
       <version>${validation-api.version}</version>
     </dependency>
     <dependency>
