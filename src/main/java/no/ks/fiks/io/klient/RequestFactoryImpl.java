@@ -2,7 +2,6 @@ package no.ks.fiks.io.klient;
 
 import lombok.Builder;
 import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpMethod;
 
@@ -31,12 +30,12 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public Request createSendToFiksIORequest(ContentProvider contentProvider) {
+    public Request createSendToFiksIORequest(Request.Content contentProvider) {
         return client.newRequest(hostName, portNumber)
-                                .scheme(scheme)
-                                .method(HttpMethod.POST)
-                                .path(BASE_PATH + "send")
-                                .content(contentProvider);
+                .scheme(scheme)
+                .method(HttpMethod.POST)
+                .path(BASE_PATH + "send")
+                .body(contentProvider);
     }
 
     @Override

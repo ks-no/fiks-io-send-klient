@@ -1,6 +1,5 @@
 package no.ks.fiks.io.klient;
 
-import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.Request;
 
 import java.io.Closeable;
@@ -15,5 +14,5 @@ public interface RequestFactory extends Closeable {
      * @param contentProvider innhold som skal sendes
      * @return en ny {@link Request}
      */
-    Request createSendToFiksIORequest(ContentProvider contentProvider);
+    Request createSendToFiksIORequest(Request.Content contentProvider);
 }

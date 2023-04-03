@@ -34,6 +34,7 @@
     <logback-classic.version>1.4.6</logback-classic.version>
     <commons-io.version>2.11.0</commons-io.version>
     <maskinporten-client.version>3.0.0</maskinporten-client.version>
+    <assertj.version>3.24.2</assertj.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -109,6 +110,12 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

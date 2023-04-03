@@ -25,9 +25,9 @@ public class IntegrasjonAuthenticationStrategy implements AuthenticationStrategy
 
     @Override
     public void setAuthenticationHeaders(Request request) {
-        request.header(HttpHeader.AUTHORIZATION, "Bearer " + getAccessToken())
-                .header(INTEGRASJON_ID, integrasjonId.toString())
-                .header(INTEGRASJON_PASSWORD, integrasjonPassord);
+        request.headers(m -> m.add(HttpHeader.AUTHORIZATION, "Bearer " + getAccessToken())
+                .add(INTEGRASJON_ID, integrasjonId.toString())
+                .add(INTEGRASJON_PASSWORD, integrasjonPassord));
     }
 
     private String getAccessToken() {
