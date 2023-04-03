@@ -6,3 +6,11 @@
 
 
 Klient som brukes for å sende inn ASiC-E meldinger til Fiks IO mottakstjenesten over HTTP
+
+## Versjoner
+Versjon 3.x krever Java 17 eller høyere. Har du ikke mulighet for å bruke det må du holde deg på v. 2.x
+
+| Versjon | Java baseline | Spring Boot versjon | Status      | 
+|---------|---------------|---------------------|-------------|
+| 3.x     | Java 17       | 3.X                 | Aktiv       | 
+| 2.X     | Java 11       | 2.X                 | Vedlikehold |
