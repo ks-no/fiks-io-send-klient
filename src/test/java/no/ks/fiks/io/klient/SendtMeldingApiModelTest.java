@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestInfo;
 import java.util.Collections;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SendtMeldingApiModelTest {
 
@@ -26,9 +26,9 @@ class SendtMeldingApiModelTest {
                 .meldingType(testInfo.getDisplayName())
                 .build();
         final String jsonString = mapper.writeValueAsString(meldingApiModel);
-        assertNotNull(jsonString);
+        assertThat(jsonString).isNotNull();
         SendtMeldingApiModel deserializedMeldingModel = mapper.readValue(jsonString, SendtMeldingApiModel.class);
-        assertEquals(meldingApiModel, deserializedMeldingModel);
+        assertThat(deserializedMeldingModel).isEqualTo(meldingApiModel);
     }
 
 }

@@ -2,10 +2,8 @@ package no.ks.fiks.io.klient;
 
 import lombok.Builder;
 import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.http.HttpMethod;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import java.time.Duration;
 
@@ -22,7 +20,7 @@ public class RequestFactoryImpl implements RequestFactory {
         this.hostName = hostName;
         this.portNumber = portNumber;
 
-        this.client = new HttpClient(new SslContextFactory.Client());
+        this.client = new HttpClient();
         this.client.setIdleTimeout(Duration.ofMinutes(1).toMillis());
         try {
             client.start();
@@ -32,12 +30,12 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public Request createSendToFiksIORequest(ContentProvider contentProvider) {
+    public Request createSendToFiksIORequest(Request.Content contentProvider) {
         return client.newRequest(hostName, portNumber)
-                                .scheme(scheme)
-                                .method(HttpMethod.POST)
-                                .path(BASE_PATH + "send")
-                                .content(contentProvider);
+                .scheme(scheme)
+                .method(HttpMethod.POST)
+                .path(BASE_PATH + "send")
+                .body(contentProvider);
     }
 
     @Override
