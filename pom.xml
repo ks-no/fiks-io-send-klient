@@ -32,7 +32,7 @@
     <jetty-client.version>11.0.14</jetty-client.version>
     <validation-api.version>3.0.2</validation-api.version>
     <logback-classic.version>1.4.6</logback-classic.version>
-    <commons-io.version>2.11.0</commons-io.version>
+    <commons-io.version>2.12.0</commons-io.version>
     <maskinporten-client.version>3.0.0</maskinporten-client.version>
     <assertj.version>3.24.2</assertj.version>
     <slf4j.version>2.0.7</slf4j.version>
