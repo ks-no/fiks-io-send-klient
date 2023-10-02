@@ -1,7 +1,7 @@
 package no.ks.fiks.io.klient;
 
-import org.eclipse.jetty.client.api.Request;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 
 public interface AuthenticationStrategy {
-    void setAuthenticationHeaders(Request request);
+    void setAuthenticationHeaders(ClassicHttpRequest request);
 }

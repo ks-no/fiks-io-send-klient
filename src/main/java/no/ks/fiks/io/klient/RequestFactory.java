@@ -1,18 +1,17 @@
 package no.ks.fiks.io.klient;
 
-import org.eclipse.jetty.client.api.Request;
-
-import java.io.Closeable;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.HttpEntity;
 
 /**
  * Factory for nye send requester
  */
-public interface RequestFactory extends Closeable {
+public interface RequestFactory {
 
     /**
-     * Oppretter ny {@link Request} for å sende til fiks-io
+     * Oppretter ny {@link ClassicHttpRequest} for å sende til fiks-io
      * @param contentProvider innhold som skal sendes
-     * @return en ny {@link Request}
+     * @return en ny {@link ClassicHttpRequest}
      */
-    Request createSendToFiksIORequest(Request.Content contentProvider);
+    ClassicHttpRequest createSendToFiksIORequest(HttpEntity contentProvider);
 }

@@ -3,9 +3,8 @@ package no.ks.fiks.io.klient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.core5.http.ClassicHttpRequest;
 
 import java.util.function.Function;
 
@@ -25,7 +24,7 @@ public class FiksIOUtsendingKlientBuilder {
 
     private AuthenticationStrategy authenticationStrategy;
 
-    private Function<Request, Request> requestInterceptor;
+    private Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor;
 
     private ObjectMapper objectMapper;
 
@@ -54,7 +53,7 @@ public class FiksIOUtsendingKlientBuilder {
         return this;
     }
 
-    public FiksIOUtsendingKlientBuilder withRequestInterceptor(Function<Request, Request> requestInterceptor) {
+    public FiksIOUtsendingKlientBuilder withRequestInterceptor(Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor) {
         this.requestInterceptor = requestInterceptor;
         return this;
     }
@@ -82,7 +81,7 @@ public class FiksIOUtsendingKlientBuilder {
                                  .build();
     }
 
-    private Function<Request, Request> getOrCreateRequestInterceptor() {
+    private Function<ClassicHttpRequest, ClassicHttpRequest> getOrCreateRequestInterceptor() {
         return requestInterceptor == null ? request -> request : requestInterceptor;
     }
 

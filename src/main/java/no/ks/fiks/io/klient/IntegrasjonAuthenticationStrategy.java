@@ -2,8 +2,9 @@ package no.ks.fiks.io.klient;
 
 import no.ks.fiks.maskinporten.AccessTokenRequest;
 import no.ks.fiks.maskinporten.MaskinportenklientOperations;
-import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.http.HttpHeader;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.message.BasicHeader;
 
 import java.util.UUID;
 
@@ -24,10 +25,10 @@ public class IntegrasjonAuthenticationStrategy implements AuthenticationStrategy
     }
 
     @Override
-    public void setAuthenticationHeaders(Request request) {
-        request.headers(m -> m.add(HttpHeader.AUTHORIZATION, "Bearer " + getAccessToken())
-                .add(INTEGRASJON_ID, integrasjonId.toString())
-                .add(INTEGRASJON_PASSWORD, integrasjonPassord));
+    public void setAuthenticationHeaders(ClassicHttpRequest request) {
+        request.addHeader(new BasicHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken()));
+        request.addHeader(new BasicHeader(INTEGRASJON_ID, integrasjonId.toString()));
+        request.addHeader(new BasicHeader(INTEGRASJON_PASSWORD, integrasjonPassord));
     }
 
     private String getAccessToken() {
