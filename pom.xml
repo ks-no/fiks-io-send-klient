@@ -29,7 +29,7 @@
     <revision>1.2.8</revision>
     <lombok.version>1.18.24</lombok.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
-    <jetty-client.version>12.0.1</jetty-client.version>
+    <jetty-client.version>11.0.16</jetty-client.version>
     <validation-api.version>3.0.2</validation-api.version>
     <logback-classic.version>1.4.8</logback-classic.version>
     <commons-io.version>2.14.0</commons-io.version>
