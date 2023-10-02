@@ -33,7 +33,7 @@
     <validation-api.version>3.0.2</validation-api.version>
     <logback-classic.version>1.4.11</logback-classic.version>
     <commons-io.version>2.14.0</commons-io.version>
-    <maskinporten-client.version>3.1.2</maskinporten-client.version>
+    <maskinporten-client.version>3.1.4</maskinporten-client.version>
     <assertj.version>3.24.2</assertj.version>
     <slf4j.version>2.0.9</slf4j.version>
     <mockserver.version>5.15.0</mockserver.version>
