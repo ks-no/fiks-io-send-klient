@@ -3,10 +3,12 @@ package no.ks.fiks.io.klient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.Request;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.util.TimeValue;
 
+import java.time.Duration;
 import java.util.function.Function;
 
 /**
@@ -14,8 +16,6 @@ import java.util.function.Function;
  */
 @Slf4j
 public class FiksIOUtsendingKlientBuilder {
-
-    private HttpClient httpClient;
 
     private String scheme = "https";
 
@@ -25,11 +25,17 @@ public class FiksIOUtsendingKlientBuilder {
 
     private AuthenticationStrategy authenticationStrategy;
 
-    private Function<Request, Request> requestInterceptor;
+    private Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor;
 
     private ObjectMapper objectMapper;
 
-    public FiksIOUtsendingKlientBuilder withHttpClient(@NonNull final HttpClient httpClient) {
+    private CloseableHttpClient httpClient = HttpClients.custom()
+            .disableAutomaticRetries()
+            .useSystemProperties()
+            .evictIdleConnections(TimeValue.of(Duration.ofMinutes(1L)))
+            .build();
+
+    public FiksIOUtsendingKlientBuilder withHttpClient(@NonNull final CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
         return this;
     }
@@ -54,7 +60,7 @@ public class FiksIOUtsendingKlientBuilder {
         return this;
     }
 
-    public FiksIOUtsendingKlientBuilder withRequestInterceptor(Function<Request, Request> requestInterceptor) {
+    public FiksIOUtsendingKlientBuilder withRequestInterceptor(Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor) {
         this.requestInterceptor = requestInterceptor;
         return this;
     }
@@ -70,7 +76,8 @@ public class FiksIOUtsendingKlientBuilder {
                 createRequestFactory(),
                 authenticationStrategy,
                 getOrCreateRequestInterceptor(),
-                getOrCreateObjectMapper()
+                getOrCreateObjectMapper(),
+                httpClient
         );
     }
 
@@ -82,7 +89,7 @@ public class FiksIOUtsendingKlientBuilder {
                                  .build();
     }
 
-    private Function<Request, Request> getOrCreateRequestInterceptor() {
+    private Function<ClassicHttpRequest, ClassicHttpRequest> getOrCreateRequestInterceptor() {
         return requestInterceptor == null ? request -> request : requestInterceptor;
     }
 

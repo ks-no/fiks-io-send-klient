@@ -2,13 +2,9 @@ package no.ks.fiks.io.klient;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.ks.fiks.maskinporten.AccessTokenRequest;
-import no.ks.fiks.maskinporten.MaskinportenklientOperations;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.junit.jupiter.MockServerExtension;
@@ -22,7 +18,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
@@ -33,8 +28,6 @@ class FiksIOUtsendingKlientTest {
             .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     private static final String SEND_PATH = RequestFactoryImpl.BASE_PATH + "send";
-    @Mock
-    private MaskinportenklientOperations maskinportenklientOperations;
 
     @DisplayName("Sender en pakke")
     @Test
@@ -44,7 +37,6 @@ class FiksIOUtsendingKlientTest {
                 .avsenderKontoId(UUID.randomUUID())
                 .mottakerKontoId(UUID.randomUUID())
                 .build();
-        Mockito.when(maskinportenklientOperations.getAccessToken(any(AccessTokenRequest.class))).thenReturn("token");
         clientAndServer.when(request().withMethod("POST").withPath(SEND_PATH))
                 .respond(request -> response()
                         .withStatusCode(HttpStatusCode.ACCEPTED_202.code())
@@ -60,12 +52,11 @@ class FiksIOUtsendingKlientTest {
                 .withHostName("localhost")
                 .withPortNumber(clientAndServer.getPort())
                 .withScheme("http")
-                .withAuthenticationStrategy(new IntegrasjonAuthenticationStrategy(maskinportenklientOperations, UUID.randomUUID(), "passord"))
+                .withAuthenticationStrategy(new IntegrasjonAuthenticationStrategy(() -> "token", UUID.randomUUID(), "passord"))
                 .build();
         try(InputStream payload = FiksIOUtsendingKlientTest.class.getResourceAsStream("/small.pdf")) {
             assertThat(fiksIOUtsendingKlient.send(meldingSpesifikasjonApiModel, Optional.ofNullable(payload))).isInstanceOfAny(SendtMeldingApiModel.class);
-            clientAndServer.verify(request(SEND_PATH));
-            Mockito.verify(maskinportenklientOperations).getAccessToken(any(AccessTokenRequest.class));
+            clientAndServer.verify(request(SEND_PATH).withMethod("POST"));
         }
     }
 }
