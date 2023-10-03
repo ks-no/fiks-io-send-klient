@@ -54,11 +54,13 @@ public class FiksIOUtsendingKlient implements Closeable {
             return client.execute(request, response -> {
                 final int responseCode = response.getCode();
                 log.debug("Response status: {}", responseCode);
-                if (responseCode >= HttpStatus.SC_BAD_REQUEST) {
-                    final var contentAsString = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
-                    throw new FiksIOHttpException(String.format("HTTP-feil under sending av melding (%d): %s", responseCode, contentAsString), responseCode, contentAsString);
+                try (InputStream content = response.getEntity().getContent() ) {
+                    if (responseCode >= HttpStatus.SC_BAD_REQUEST) {
+                        final var contentAsString = IOUtils.toString(content, StandardCharsets.UTF_8);
+                        throw new FiksIOHttpException(String.format("HTTP-feil under sending av melding (%d): %s", responseCode, contentAsString), responseCode, contentAsString);
+                    }
+                    return objectMapper.readValue(content, SendtMeldingApiModel.class);
                 }
-                return objectMapper.readValue(response.getEntity().getContent(), SendtMeldingApiModel.class);
             });
         } catch (IOException e) {
             throw new RuntimeException("Feil under invokering av FIKS IO api", e);
