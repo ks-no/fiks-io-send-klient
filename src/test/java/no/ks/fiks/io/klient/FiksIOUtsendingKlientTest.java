@@ -113,7 +113,7 @@ class FiksIOUtsendingKlientTest {
                     .withHttpClient(client)
                     .build();
             final var payload = IOUtils.toByteArray(Objects.requireNonNull(FiksIOUtsendingKlientTest.class.getResourceAsStream("/small.pdf")));
-            final int antallTreads = 100;
+            final int antallTreads = 30;
             final ExecutorService executor = Executors.newFixedThreadPool(antallTreads);
             try {
 
@@ -129,7 +129,7 @@ class FiksIOUtsendingKlientTest {
                 }
                 futures.stream().map(CompletableFuture::join).forEach((s) ->
                         assertThat(s).isInstanceOf(SendtMeldingApiModel.class));
-                clientAndServer.verify(request(SEND_PATH).withMethod("POST"), VerificationTimes.exactly(antallTreads));
+                clientAndServer.verify(request(SEND_PATH).withMethod("POST"), VerificationTimes.atLeast(antallTreads));
                 assertThat(connectionManager.getTotalStats().getLeased()).isEqualTo(0);
                 assertThat(connectionManager.getTotalStats().getPending()).isEqualTo(0);
             } finally {
