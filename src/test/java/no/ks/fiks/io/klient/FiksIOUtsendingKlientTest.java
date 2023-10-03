@@ -56,7 +56,7 @@ class FiksIOUtsendingKlientTest {
                 .build();
         try(InputStream payload = FiksIOUtsendingKlientTest.class.getResourceAsStream("/small.pdf")) {
             assertThat(fiksIOUtsendingKlient.send(meldingSpesifikasjonApiModel, Optional.ofNullable(payload))).isInstanceOfAny(SendtMeldingApiModel.class);
-            clientAndServer.verify(request(SEND_PATH));
+            clientAndServer.verify(request(SEND_PATH).withMethod("POST"));
         }
     }
 }

@@ -3,9 +3,12 @@ package no.ks.fiks.io.klient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.util.TimeValue;
 
+import java.time.Duration;
 import java.util.function.Function;
 
 /**
@@ -13,8 +16,6 @@ import java.util.function.Function;
  */
 @Slf4j
 public class FiksIOUtsendingKlientBuilder {
-
-    private HttpClient httpClient;
 
     private String scheme = "https";
 
@@ -28,7 +29,13 @@ public class FiksIOUtsendingKlientBuilder {
 
     private ObjectMapper objectMapper;
 
-    public FiksIOUtsendingKlientBuilder withHttpClient(@NonNull final HttpClient httpClient) {
+    private CloseableHttpClient httpClient = HttpClients.custom()
+            .disableAutomaticRetries()
+            .useSystemProperties()
+            .evictIdleConnections(TimeValue.of(Duration.ofMinutes(1L)))
+            .build();
+
+    public FiksIOUtsendingKlientBuilder withHttpClient(@NonNull final CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
         return this;
     }
@@ -69,7 +76,8 @@ public class FiksIOUtsendingKlientBuilder {
                 createRequestFactory(),
                 authenticationStrategy,
                 getOrCreateRequestInterceptor(),
-                getOrCreateObjectMapper()
+                getOrCreateObjectMapper(),
+                httpClient
         );
     }
 
