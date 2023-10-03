@@ -46,11 +46,10 @@ public class FiksIOUtsendingKlient implements Closeable {
     }
 
     public SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Optional<InputStream> data) {
-        final ClassicHttpRequest request = requestFactory.createSendToFiksIORequest(createMultiPartContent(metadata, data));
-        authenticationStrategy.setAuthenticationHeaders(request);
-        requestInterceptor.apply(request);
-
-        try {
+        try (final HttpEntity httpEntity = createMultiPartContent(metadata, data)) {
+            final ClassicHttpRequest request = requestFactory.createSendToFiksIORequest(httpEntity);
+            authenticationStrategy.setAuthenticationHeaders(request);
+            requestInterceptor.apply(request);
             return client.execute(request, response -> {
                 final int responseCode = response.getCode();
                 log.debug("Response status: {}", responseCode);
