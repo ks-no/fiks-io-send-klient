@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Slf4j
@@ -68,7 +69,7 @@ public class FiksIOUtsendingKlient implements Closeable {
     private HttpEntity createMultiPartContent(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull Optional<InputStream> data) {
         var multipartRequestContentBuilder = MultipartEntityBuilder.create()
                 .addBinaryBody("metadata", serialiser(metadata).getBytes(StandardCharsets.UTF_8), ContentType.APPLICATION_JSON, null);
-        data.ifPresent(inputStream -> multipartRequestContentBuilder.addPart("data", new InputStreamBody(inputStream, ContentType.APPLICATION_OCTET_STREAM)));
+        data.ifPresent(inputStream -> multipartRequestContentBuilder.addPart("data", new InputStreamBody(inputStream, ContentType.APPLICATION_OCTET_STREAM, UUID.randomUUID().toString())));
         return multipartRequestContentBuilder.build();
     }
 
