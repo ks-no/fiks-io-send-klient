@@ -58,11 +58,7 @@ public class FiksIOUtsendingKlient implements Closeable {
         var multipartRequestContentBuilder = MultipartEntityBuilder.create()
                 .addBinaryBody("metadata", serialiser(metadata).getBytes(StandardCharsets.UTF_8), ContentType.APPLICATION_JSON, null);
         HttpEntity httpEntity =  multipartRequestContentBuilder.build();
-        try {
-            return sendMelding(httpEntity);
-        } catch (IOException e) {
-            throw new RuntimeException("Feil under sending av Fiks-IO melding", e);
-        }
+        return sendMelding(httpEntity);
     }
 
     private SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull InputStream data) {
@@ -80,27 +76,31 @@ public class FiksIOUtsendingKlient implements Closeable {
 
             return sendMelding(httpEntity);
         } catch (IOException e) {
-            throw new RuntimeException("Feil under sending av Fiks-IO melding", e);
+            throw new RuntimeException("Feil under lesing av data, som skal sendes med Fiks-IO melding", e);
         }
 
     }
 
-    private SendtMeldingApiModel sendMelding(HttpEntity httpEntity) throws IOException {
-        final ClassicHttpRequest request = requestFactory.createSendToFiksIORequest(httpEntity);
-        authenticationStrategy.setAuthenticationHeaders(request);
-        requestInterceptor.apply(request);
-        return client.execute(request, response -> {
-            final int responseCode = response.getCode();
-            log.debug("Response status: {}", responseCode);
-            try (final HttpEntity entity = response.getEntity();
-                 final InputStream content = entity.getContent()) {
-                if (responseCode >= HttpStatus.SC_BAD_REQUEST) {
-                    final var contentAsString = IOUtils.toString(content, StandardCharsets.UTF_8);
-                    throw new FiksIOHttpException(String.format("HTTP-feil under sending av melding (%d): %s", responseCode, contentAsString), responseCode, contentAsString);
+    private SendtMeldingApiModel sendMelding(HttpEntity httpEntity) {
+        try {
+            final ClassicHttpRequest request = requestFactory.createSendToFiksIORequest(httpEntity);
+            authenticationStrategy.setAuthenticationHeaders(request);
+            requestInterceptor.apply(request);
+            return client.execute(request, response -> {
+                final int responseCode = response.getCode();
+                log.debug("Response status: {}", responseCode);
+                try (final HttpEntity entity = response.getEntity();
+                     final InputStream content = entity.getContent()) {
+                    if (responseCode >= HttpStatus.SC_BAD_REQUEST) {
+                        final var contentAsString = IOUtils.toString(content, StandardCharsets.UTF_8);
+                        throw new FiksIOHttpException(String.format("HTTP-feil under sending av melding (%d): %s", responseCode, contentAsString), responseCode, contentAsString);
+                    }
+                    return objectMapper.readValue(content, SendtMeldingApiModel.class);
                 }
-                return objectMapper.readValue(content, SendtMeldingApiModel.class);
-            }
-        });
+            });
+        } catch (IOException e) {
+            throw new RuntimeException("Feil under sending av Fiks-IO melding", e);
+        }
     }
 
 
