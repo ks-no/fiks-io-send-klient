@@ -69,7 +69,7 @@ public class FiksIOUtsendingKlient implements Closeable {
         try (PushbackInputStream pis = new PushbackInputStream(data)) {
             int read = pis.read();
             if (read == END_OF_STREAM) {
-                throw new RuntimeException("Klarte ikke å lsse innhold i fil");
+                throw new IllegalArgumentException("Klarte ikke å lese innhold i fil");
             }
             pis.unread(read);
 
