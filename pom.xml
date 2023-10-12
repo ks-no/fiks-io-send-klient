@@ -9,7 +9,7 @@
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>fiks-io-send-klient</artifactId>
-  <version>3.2.2-SNAPSHOT</version>
+  <version>3.2.2</version>
   <name>FIKS IO send-klient</name>
   <description>Klient for å sende meldinger til FIKS IO</description>
   <url>https://github.com/ks-no/fiks-io</url>
