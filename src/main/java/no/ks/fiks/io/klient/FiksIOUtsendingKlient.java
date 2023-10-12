@@ -23,6 +23,7 @@ import java.util.function.Function;
 
 @Slf4j
 public class FiksIOUtsendingKlient implements Closeable {
+
     private final RequestFactory requestFactory;
     private final AuthenticationStrategy authenticationStrategy;
     private final Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor;
@@ -30,6 +31,8 @@ public class FiksIOUtsendingKlient implements Closeable {
     private final ObjectMapper objectMapper;
 
     private final static int END_OF_STREAM = -1;
+    public static final String MULTIPART_METADATA = "metadata";
+    public static final String MULTIPART_DATA = "data";
 
     FiksIOUtsendingKlient(@NonNull final RequestFactory requestFactory,
                           @NonNull AuthenticationStrategy authenticationStrategy,
@@ -55,10 +58,7 @@ public class FiksIOUtsendingKlient implements Closeable {
         }
     }
     private SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata) {
-        var multipartRequestContentBuilder = MultipartEntityBuilder.create()
-                .addBinaryBody("metadata", serialiser(metadata).getBytes(StandardCharsets.UTF_8), ContentType.APPLICATION_JSON, null);
-        HttpEntity httpEntity =  multipartRequestContentBuilder.build();
-        return sendMelding(httpEntity);
+        return sendMelding(getMultipartEntityBuilder(metadata).build());
     }
 
     private SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull InputStream data) {
@@ -69,16 +69,19 @@ public class FiksIOUtsendingKlient implements Closeable {
             }
             pis.unread(read);
 
-            var multipartRequestContentBuilder = MultipartEntityBuilder.create()
-                    .addBinaryBody("metadata", serialiser(metadata).getBytes(StandardCharsets.UTF_8), ContentType.APPLICATION_JSON, null);
-            multipartRequestContentBuilder.addBinaryBody("data", pis, ContentType.APPLICATION_OCTET_STREAM, UUID.randomUUID().toString());
+            var multipartRequestContentBuilder = getMultipartEntityBuilder(metadata);
+            multipartRequestContentBuilder.addBinaryBody(MULTIPART_DATA, pis, ContentType.APPLICATION_OCTET_STREAM, UUID.randomUUID().toString());
             HttpEntity httpEntity =  multipartRequestContentBuilder.build();
 
             return sendMelding(httpEntity);
         } catch (IOException e) {
             throw new RuntimeException("Feil under lesing av data, som skal sendes med Fiks-IO melding", e);
         }
+    }
 
+    private MultipartEntityBuilder getMultipartEntityBuilder(MeldingSpesifikasjonApiModel metadata) {
+        return MultipartEntityBuilder.create()
+                .addBinaryBody(MULTIPART_METADATA, serialiser(metadata).getBytes(StandardCharsets.UTF_8), ContentType.APPLICATION_JSON, null);
     }
 
     private SendtMeldingApiModel sendMelding(HttpEntity httpEntity) {
