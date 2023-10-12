@@ -69,9 +69,7 @@ public class FiksIOUtsendingKlient implements Closeable {
             }
             pis.unread(read);
 
-            var multipartRequestContentBuilder = getMultipartEntityBuilder(metadata);
-            multipartRequestContentBuilder.addBinaryBody(MULTIPART_DATA, pis, ContentType.APPLICATION_OCTET_STREAM, UUID.randomUUID().toString());
-            HttpEntity httpEntity =  multipartRequestContentBuilder.build();
+            HttpEntity httpEntity =  getMultipartEntityBuilder(metadata).addBinaryBody(MULTIPART_DATA, pis, ContentType.APPLICATION_OCTET_STREAM, UUID.randomUUID().toString()).build();
 
             return sendMelding(httpEntity);
         } catch (IOException e) {
