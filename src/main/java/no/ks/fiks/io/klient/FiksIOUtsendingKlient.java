@@ -29,6 +29,8 @@ public class FiksIOUtsendingKlient implements Closeable {
     private final CloseableHttpClient client;
     private final ObjectMapper objectMapper;
 
+    private final static int END_OF_STREAM = -1;
+
     FiksIOUtsendingKlient(@NonNull final RequestFactory requestFactory,
                           @NonNull AuthenticationStrategy authenticationStrategy,
                           @NonNull Function<ClassicHttpRequest, ClassicHttpRequest> requestInterceptor,
@@ -66,7 +68,7 @@ public class FiksIOUtsendingKlient implements Closeable {
     private SendtMeldingApiModel send(@NonNull MeldingSpesifikasjonApiModel metadata, @NonNull InputStream data) {
         try (PushbackInputStream pis = new PushbackInputStream(data)) {
             int read = pis.read();
-            if (read == -1) {
+            if (read == END_OF_STREAM) {
                 throw new RuntimeException("Klarte ikke å lsse innhold i fil");
             }
             pis.unread(read);
