@@ -27,7 +27,7 @@
 
     <apache-httpclient5.version>5.2.1</apache-httpclient5.version>
     <assertj.version>3.24.2</assertj.version>
-    <commons-io.version>2.14.0</commons-io.version>
+    <commons-io.version>2.15.1</commons-io.version>
     <jackson.version>2.15.2</jackson.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <logback-classic.version>1.4.11</logback-classic.version>
