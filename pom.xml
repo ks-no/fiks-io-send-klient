@@ -26,7 +26,7 @@
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
 
     <apache-httpclient5.version>5.4.1</apache-httpclient5.version>
-    <assertj.version>3.26.3</assertj.version>
+    <assertj.version>3.27.2</assertj.version>
     <commons-io.version>2.17.0</commons-io.version>
     <jackson.version>2.18.1</jackson.version>
     <junit-jupiter.version>5.11.3</junit-jupiter.version>
