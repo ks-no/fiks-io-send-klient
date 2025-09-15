@@ -5,7 +5,7 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>1.4.0</version>
+    <version>1.7.0</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>fiks-io-send-klient</artifactId>
@@ -24,18 +24,17 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
-
     <apache-httpclient5.version>5.5</apache-httpclient5.version>
     <assertj.version>3.27.4</assertj.version>
-    <apache-commons-io.version>2.19.0</apache-commons-io.version>
-    <jackson.version>2.19.2</jackson.version>
-    <junit-jupiter.version>5.11.4</junit-jupiter.version>
+    <apache-commons-io.version>2.20.0</apache-commons-io.version>
+    <jackson.version>2.20.0</jackson.version>
+    <junit-jupiter.version>5.13.4</junit-jupiter.version>
     <logback-classic.version>1.5.18</logback-classic.version>
     <lombok.version>1.18.38</lombok.version>
     <maskinporten-client.version>3.1.4</maskinporten-client.version>
-    <mockito.version>5.18.0</mockito.version>
-    <mockserver.version>5.14.0</mockserver.version>
-    <slf4j.version>2.0.16</slf4j.version>
+    <mockito.version>5.19.0</mockito.version>
+    <mockserver.version>5.15.0</mockserver.version>
+    <slf4j.version>2.0.17</slf4j.version>
     <validation-api.version>3.1.1</validation-api.version>
   </properties>
   <dependencyManagement>
