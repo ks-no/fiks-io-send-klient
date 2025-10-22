@@ -24,7 +24,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
-    <apache-httpclient5.version>5.5</apache-httpclient5.version>
+    <apache-httpclient5.version>5.5.1</apache-httpclient5.version>
     <assertj.version>3.27.6</assertj.version>
     <apache-commons-io.version>2.20.0</apache-commons-io.version>
     <jackson.version>2.20.0</jackson.version>
