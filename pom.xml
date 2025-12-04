@@ -27,8 +27,8 @@
     <apache-httpclient5.version>5.5.1</apache-httpclient5.version>
     <assertj.version>3.27.6</assertj.version>
     <apache-commons-io.version>2.21.0</apache-commons-io.version>
+    <junit-jupiter.version>6.0.1</junit-jupiter.version>
     <jackson.version>2.20.1</jackson.version>
-    <junit-jupiter.version>6.0.0</junit-jupiter.version>
     <logback-classic.version>1.5.21</logback-classic.version>
     <lombok.version>1.18.38</lombok.version>
     <maskinporten-client.version>3.1.4</maskinporten-client.version>
