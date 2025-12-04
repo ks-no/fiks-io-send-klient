@@ -5,7 +5,7 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.2</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>fiks-io-send-klient</artifactId>
@@ -26,10 +26,10 @@
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
     <apache-httpclient5.version>5.5.1</apache-httpclient5.version>
     <assertj.version>3.27.6</assertj.version>
-    <apache-commons-io.version>2.20.0</apache-commons-io.version>
+    <apache-commons-io.version>2.21.0</apache-commons-io.version>
     <jackson.version>2.20.0</jackson.version>
     <junit-jupiter.version>6.0.0</junit-jupiter.version>
-    <logback-classic.version>1.5.20</logback-classic.version>
+    <logback-classic.version>1.5.21</logback-classic.version>
     <lombok.version>1.18.38</lombok.version>
     <maskinporten-client.version>3.1.4</maskinporten-client.version>
     <mockito.version>5.20.0</mockito.version>
