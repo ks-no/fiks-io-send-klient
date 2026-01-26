@@ -28,7 +28,7 @@
     <assertj.version>3.27.7</assertj.version>
     <apache-commons-io.version>2.21.0</apache-commons-io.version>
     <junit-jupiter.version>6.0.2</junit-jupiter.version>
-    <jackson.version>2.20.1</jackson.version>
+    <jackson.version>2.21.0</jackson.version>
     <logback-classic.version>1.5.26</logback-classic.version>
     <lombok.version>1.18.38</lombok.version>
     <maskinporten-client.version>3.1.4</maskinporten-client.version>
