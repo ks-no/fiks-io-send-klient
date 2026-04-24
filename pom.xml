@@ -26,7 +26,7 @@
     <enforcer.jdk.version>${java.version}</enforcer.jdk.version>
     <apache-httpclient5.version>5.6.1</apache-httpclient5.version>
     <assertj.version>3.27.7</assertj.version>
-    <apache-commons-io.version>2.21.0</apache-commons-io.version>
+    <apache-commons-io.version>2.22.0</apache-commons-io.version>
     <junit-jupiter.version>6.0.3</junit-jupiter.version>
     <jackson.version>2.21.2</jackson.version>
     <logback-classic.version>1.5.32</logback-classic.version>
