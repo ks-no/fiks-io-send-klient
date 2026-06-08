@@ -33,7 +33,7 @@
     <lombok.version>1.18.38</lombok.version>
     <maskinporten-client.version>3.1.4</maskinporten-client.version>
     <mockito.version>5.23.0</mockito.version>
-    <mockserver.version>6.1.0</mockserver.version>
+    <mockserver.version>7.0.0</mockserver.version>
     <slf4j.version>2.0.18</slf4j.version>
     <validation-api.version>3.1.1</validation-api.version>
   </properties>
