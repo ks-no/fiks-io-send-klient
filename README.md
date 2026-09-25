@@ -15,6 +15,10 @@ Denne send-klienten forenkler sending av meldinger til Fiks IO ved å håndtere 
 > - Java: [fiks-io-klient-java](https://github.com/ks-no/fiks-io-klient-java)
 > - .NET: [fiks-io-client-dotnet](https://github.com/ks-no/fiks-io-client-dotnet)
 
+> **Merk:** Man må også sette opp en klient som abonnerer på meldinger til kontoen, bl.a. for å motta kvitteringer og feilmeldinger. Se:
+> - Java: [fiks-io-klient-java](https://github.com/ks-no/fiks-io-klient-java)
+> - .NET: [fiks-io-client-dotnet](https://github.com/ks-no/fiks-io-client-dotnet)
+
 ## Versjoner
 Versjon 3.x krever Java 17 eller høyere. Har du ikke mulighet for å bruke det må du holde deg på v. 2.x
 
